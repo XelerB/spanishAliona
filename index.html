@@ -3,100 +3,141 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Испанский язык</title>
+<title>Испанский язык — Школа Алёны</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=Golos+Text:wght@400;500;600&family=Caveat:wght@700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;700;900&family=Golos+Text:wght@400;500;600;700&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
 
 <style>
-/* ══════════════════════════ ПАЛИТРА И БАЗА ══════════════════════════ */
 :root{
   --paper:#F7EFE0;
+  --paper2:#EFE3CC;
   --ink:#241812;
   --red:#C6472E;
+  --red-d:#A63A24;
   --sun:#F2B33D;
+  --pine:#1E2B22;
   --shadow:6px 6px 0 rgba(36,24,18,.9);
 }
 *{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
 body{
-  background:var(--paper);
-  color:var(--ink);
-  font-family:'Golos Text',sans-serif;
-  font-size:18px;line-height:1.7;
-  min-height:100vh;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  padding:40px 20px;
-  position:relative;overflow-x:hidden;
+  background:var(--paper);color:var(--ink);
+  font-family:'Golos Text',sans-serif;font-size:18px;line-height:1.7;
+  min-height:100vh;position:relative;overflow-x:hidden;
 }
 
-/* Зернистая текстура */
 .noise{
-  position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.06;
+  position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.05;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E");
 }
 
-.wrap{position:relative;z-index:1;width:100%;max-width:720px;}
+.wrap{position:relative;z-index:1;width:100%;max-width:780px;margin:0 auto;padding:0 24px}
+h1,h2,h3{font-family:'Unbounded',sans-serif}
 
-h1,h2,.disp{font-family:'Unbounded',sans-serif}
-.hand{font-family:'Caveat',cursive}
+.rv{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s cubic-bezier(.22,.8,.3,1);transition-delay:var(--d,0s)}
+.rv.in{opacity:1;transform:none}
 
-/* ══════════════════════════ ДЕКОР (СОЛНЦЕ) ══════════════════════════ */
+/* ═══ ДЕКОР: СОЛНЦЕ ═══ */
 .sun-badge{
-  position:absolute;top:-60px;right:-40px;width:140px;height:140px;z-index:2;
-  animation:spin 25s linear infinite;pointer-events:none;
+  position:absolute;top:-50px;right:-30px;width:130px;height:130px;z-index:2;
+  animation:spin 22s linear infinite;pointer-events:none;
 }
 @keyframes spin{to{transform:rotate(360deg)}}
 
-/* ══════════════════════════ ТЕКСТОВЫЙ БЛОК ══════════════════════════ */
+/* ═══ ГЕРОЙ ═══ */
+.hero{padding:clamp(60px,10vw,110px) 0 clamp(40px,6vw,60px);position:relative}
+.kicker{
+  display:inline-flex;align-items:center;gap:.6rem;
+  border:1.5px solid var(--ink);border-radius:999px;padding:.45rem 1.1rem;
+  font-size:12.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
+  background:#FFF9EC;margin-bottom:1.8rem;
+}
+.kicker i{width:8px;height:8px;border-radius:50%;background:var(--red);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.5);opacity:.4}}
+
+.hero-title{
+  font-size:clamp(2.2rem,6vw,3.4rem);font-weight:900;line-height:1.08;
+  text-transform:uppercase;letter-spacing:-.01em;margin-bottom:1.4rem;
+}
+.hero-title .line{display:block;overflow:hidden;padding-bottom:.08em;margin-bottom:-.08em}
+.hero-title .line-in{display:inline-block;transform:translateY(115%);animation:rise .95s cubic-bezier(.2,.85,.25,1) forwards}
+.hero-title .line:nth-child(2) .line-in{animation-delay:.13s}
+.hero-title .line:nth-child(3) .line-in{animation-delay:.26s}
+@keyframes rise{to{transform:translateY(0)}}
+.hero-title .red{color:var(--red);position:relative}
+.hero-title .red::after{
+  content:"";position:absolute;left:0;right:0;bottom:.02em;height:.14em;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='8' viewBox='0 0 40 8'%3E%3Cpath d='M0 5 Q5 0 10 5 T20 5 T30 5 T40 5' fill='none' stroke='%23F2B33D' stroke-width='3'/%3E%3C/svg%3E") repeat-x bottom / auto 100%;
+}
+.hero-sub{font-size:clamp(1rem,2.5vw,1.15rem);color:rgba(36,24,18,.8);max-width:38rem}
+
+/* ═══ БЕГУЩАЯ СТРОКА ═══ */
+.ticker{
+  background:var(--red);color:#FFF6E8;border-block:2px solid var(--ink);
+  overflow:hidden;margin-bottom:clamp(40px,6vw,70px);
+}
+.ticker-track{
+  display:flex;gap:2.4rem;width:max-content;padding:.85rem 0;
+  animation:mar 28s linear infinite;font-family:'Unbounded';font-weight:600;
+  font-size:14px;letter-spacing:.06em;white-space:nowrap;
+}
+.ticker:hover .ticker-track{animation-play-state:paused}
+.ticker-track i{font-style:normal;color:var(--sun)}
+@keyframes mar{to{transform:translateX(-50%)}}
+
+/* ═══ ТЕКСТ ═══ */
 .text-card{
   background:#fff;border:2px solid var(--ink);border-radius:16px;
-  padding:clamp(30px,5vw,50px);margin-bottom:40px;
+  padding:clamp(30px,5vw,50px);margin-bottom:clamp(40px,6vw,70px);
   box-shadow:var(--shadow);position:relative;
 }
 .text-card::before{
   content:"";position:absolute;top:-14px;left:50%;transform:translateX(-50%) rotate(-2deg);
   width:100px;height:28px;background:rgba(242,179,61,.8);z-index:3;
 }
-
-.text-card h1{
-  font-size:clamp(1.6rem,4vw,2.4rem);font-weight:900;line-height:1.15;
+.text-card h2{
+  font-size:clamp(1.5rem,3.5vw,2rem);font-weight:900;line-height:1.2;
   margin-bottom:1.5rem;text-transform:uppercase;
 }
-.text-card h1 span{color:var(--red)}
+.text-card h2 span{color:var(--red)}
+.user-text{font-size:clamp(1rem,2.5vw,1.1rem);color:rgba(36,24,18,.85);white-space:pre-line}
 
-.user-text{
-  font-size:clamp(1rem,2.5vw,1.15rem);color:rgba(36,24,18,.85);
-  white-space:pre-line;
+/* ═══ ВИДЕО ═══ */
+.video-sect{margin-bottom:clamp(40px,6vw,70px)}
+.video-label{
+  display:inline-flex;align-items:center;gap:.7rem;font-size:12.5px;font-weight:700;
+  letter-spacing:.2em;text-transform:uppercase;margin-bottom:1.4rem;
 }
-
-/* ══════════════════════════ ВИДЕО (YouTube, 16:9) ══════════════════════════ */
+.video-label b{
+  display:grid;place-items:center;width:30px;height:30px;background:var(--sun);
+  border:2px solid var(--ink);border-radius:50%;font-family:'Unbounded';font-size:11px;
+}
 .video-frame{
   position:relative;width:100%;aspect-ratio:16/9;
   border:2px solid var(--ink);border-radius:16px;overflow:hidden;
-  background:#1E2B22;margin-bottom:40px;box-shadow:var(--shadow);
+  background:#1E2B22;box-shadow:var(--shadow);
 }
-.video-frame iframe{
-  position:absolute;inset:0;width:100%;height:100%;border:0;display:block;
-}
+.video-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block}
 
-/* ══════════════════════════ КНОПКА ══════════════════════════ */
+/* ═══ КНОПКА ═══ */
+.cta-sect{text-align:center;padding-bottom:clamp(60px,10vw,110px)}
 .cta-btn{
-  display:block;width:100%;padding:22px;
+  display:inline-block;width:100%;max-width:520px;padding:24px;
   background:var(--red);color:#FFF6E8;
   font-family:'Unbounded',sans-serif;font-weight:700;font-size:clamp(1rem,3vw,1.3rem);
   text-align:center;text-decoration:none;
   border:2px solid var(--ink);border-radius:14px;cursor:pointer;
-  box-shadow:var(--shadow);transition:transform .2s,box-shadow .2s;
+  box-shadow:var(--shadow);transition:transform .2s,box-shadow .2s,background .2s;
 }
-.cta-btn:hover{transform:translate(-3px,-3px);box-shadow:9px 9px 0 rgba(36,24,18,.9)}
+.cta-btn:hover{transform:translate(-3px,-3px);box-shadow:9px 9px 0 rgba(36,24,18,.9);background:var(--red-d)}
 .cta-btn:active{transform:translate(2px,2px);box-shadow:2px 2px 0 rgba(36,24,18,.9)}
-
 .hand-hint{
-  text-align:center;margin-top:16px;font-family:'Caveat';font-size:22px;
-  color:var(--red);transform:rotate(-1.5deg);
+  margin-top:18px;font-family:'Caveat';font-size:24px;
+  color:var(--red);transform:rotate(-1.5deg);display:inline-block;
 }
 
-/* ══════════════════════════ МОДАЛКА ══════════════════════════ */
+/* ═══ МОДАЛКА ═══ */
 .modal-overlay{
   display:none;position:fixed;inset:0;z-index:100;
   background:rgba(20,12,8,.65);backdrop-filter:blur(4px);
@@ -110,7 +151,6 @@ h1,h2,.disp{font-family:'Unbounded',sans-serif}
   animation:popIn .3s cubic-bezier(.2,.8,.3,1.1);
 }
 @keyframes popIn{from{opacity:0;transform:scale(.9) translateY(20px)}to{opacity:1;transform:none}}
-
 .close-x{
   position:absolute;top:12px;right:14px;width:36px;height:36px;
   border-radius:50%;border:2px solid var(--ink);background:#FFF9EC;
@@ -118,10 +158,8 @@ h1,h2,.disp{font-family:'Unbounded',sans-serif}
   transition:background .2s,transform .2s;
 }
 .close-x:hover{background:var(--sun);transform:rotate(90deg)}
-
-.modal-card h2{font-family:'Unbounded';font-size:22px;margin-bottom:6px}
+.modal-card h2{font-size:22px;margin-bottom:6px}
 .modal-card .sub{font-size:14px;color:rgba(36,24,18,.6);margin-bottom:20px}
-
 .field{margin-bottom:14px}
 .field label{display:block;font-weight:600;font-size:13px;margin-bottom:4px;letter-spacing:.03em}
 .field label i{color:var(--red);font-style:normal}
@@ -135,7 +173,6 @@ h1,h2,.disp{font-family:'Unbounded',sans-serif}
 .field.error input{border-color:var(--red);animation:shake .3s}
 .field.error .err{display:block}
 @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
-
 .submit-btn{
   width:100%;padding:16px;margin-top:8px;
   background:var(--red);color:#FFF6E8;border:2px solid var(--ink);border-radius:10px;
@@ -144,12 +181,18 @@ h1,h2,.disp{font-family:'Unbounded',sans-serif}
 }
 .submit-btn:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 rgba(36,24,18,.9)}
 .submit-btn:disabled{opacity:.6;cursor:not-allowed;transform:none}
-
 .fine{font-size:11px;color:rgba(36,24,18,.45);text-align:center;margin-top:12px}
 
 @media(max-width:600px){
-  .sun-badge{width:100px;height:100px;top:-40px;right:-20px}
-  body{padding:30px 16px;justify-content:flex-start}
+  .sun-badge{width:100px;height:100px;top:-35px;right:-15px}
+  .wrap{padding:0 16px}
+}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .rv{opacity:1;transform:none}
+  .hero-title .line-in{transform:none}
+  .ticker{overflow-x:auto}
 }
 </style>
 </head>
@@ -173,15 +216,36 @@ h1,h2,.disp{font-family:'Unbounded',sans-serif}
     </text>
   </svg>
 
+  <!-- ГЕРОЙ -->
+  <section class="hero">
+    <p class="kicker rv"><i></i>Школа испанского языка</p>
+    <h1 class="hero-title">
+      <span class="line"><span class="line-in">Испанский</span></span>
+      <span class="line"><span class="line-in">для взрослых</span></span>
+      <span class="line"><span class="line-in red">без стресса</span></span>
+    </h1>
+    <p class="hero-sub rv" style="--d:.1s">Авторская методика Алёны Кичигиной: 14 лет преподавания, 24 года жизни в Испании. Структурированный подход для занятых людей 40+.</p>
+  </section>
+
+</div>
+
+<!-- БЕГУЩАЯ СТРОКА -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track" id="tickerTrack">
+    <span>HOLA — привет</span><i>☀</i><span>GRACIAS — спасибо</span><i>☀</i><span>FIESTA — праздник</span><i>☀</i><span>SIESTA — отдых</span><i>☀</i><span>AMIGO — друг</span><i>☀</i><span>VAMOS — вперёд</span><i>☀</i><span>SOL — солнце</span><i>☀</i><span>SUERTE — удача</span><i>☀</i>
+  </div>
+</div>
+
+<div class="wrap">
+
   <!-- 
     ═══════════════════════════════════════════════════
     БЛОК 1: ВАШ ТЕКСТ
     Вставьте свой готовый текст внутрь <div class="user-text">
-    Переносы строк сохранятся автоматически.
     ═══════════════════════════════════════════════════
   -->
-  <div class="text-card">
-    <h1>Заголовок <span>вашего оффера</span></h1>
+  <div class="text-card rv">
+    <h2>Почему <span>возраст — не помеха</span></h2>
     <div class="user-text">Здесь будет ваш заготовленный текст.
 Просто вставьте его сюда вместо этого черновика.
 
@@ -189,30 +253,28 @@ h1,h2,.disp{font-family:'Unbounded',sans-serif}
 Стиль «испанской открытки» сохранится.</div>
   </div>
 
-  <!-- 
-    ═══════════════════════════════════════════════════
-    БЛОК 2: ВИДЕО (YouTube)
-    Видео подключено по ссылке. Чтобы заменить на другое —
-    поменяйте VIDEO_ID в src ниже (часть после /embed/).
-    Скорость регулируется в самом плеере YouTube (шестерёнка → Скорость).
-    ═══════════════════════════════════════════════════
-  -->
-  <div class="video-frame">
-    <iframe 
-      src="https://www.youtube.com/embed/91Mstn4uCWc" 
-      title="Видео о школе испанского"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-      allowfullscreen>
-    </iframe>
-  </div>
+  <!-- БЛОК 2: ВИДЕО -->
+  <section class="video-sect rv" style="--d:.1s">
+    <p class="video-label"><b>▶</b> Посмотрите видео</p>
+    <div class="video-frame">
+      <iframe 
+        src="https://www.youtube.com/embed/91Mstn4uCWc" 
+        title="Видео о школе испанского"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+        allowfullscreen>
+      </iframe>
+    </div>
+  </section>
 
   <!-- БЛОК 3: КНОПКА -->
-  <button class="cta-btn" id="openFormBtn">ЗАПОЛНИТЬ АНКЕТУ И ПЕРЕЙТИ →</button>
-  <p class="hand-hint">анкета займёт 30 секунд ☀</p>
+  <section class="cta-sect rv" style="--d:.1s">
+    <button class="cta-btn" id="openFormBtn">ЗАПОЛНИТЬ АНКЕТУ И ПЕРЕЙТИ →</button>
+    <p class="hand-hint">анкета займёт 30 секунд ☀</p>
+  </section>
 
 </div>
 
-<!-- МОДАЛЬНОЕ ОКНО С АНКЕТОЙ -->
+<!-- МОДАЛКА -->
 <div class="modal-overlay" id="modal">
   <div class="modal-card">
     <button class="close-x" id="closeModal" aria-label="Закрыть">✕</button>
@@ -242,13 +304,26 @@ h1,h2,.disp{font-family:'Unbounded',sans-serif}
 </div>
 
 <script>
-// =============================================
-// ⚙️ НАСТРОЙКИ
-// =============================================
-const TELEGRAM_BOT_URL = 'https://t.me/YOUR_BOT_USERNAME';  // ссылка на вашего бота
-const GOOGLE_SCRIPT_URL = 'ВАШ_WEB_APP_URL';               // ссылка из Google Apps Script (сохранение в таблицу)
+const TELEGRAM_BOT_URL = 'https://t.me/YOUR_BOT_USERNAME';
+const GOOGLE_SCRIPT_URL = 'ВАШ_WEB_APP_URL';
 
-// ── Модальное окно ──
+const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+// Появление при скролле
+if(REDUCED){
+  document.querySelectorAll('.rv').forEach(el => el.classList.add('in'));
+} else {
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: .12 });
+  document.querySelectorAll('.rv').forEach(el => io.observe(el));
+}
+
+// Бегущая строка
+const track = document.getElementById('tickerTrack');
+track.innerHTML += track.innerHTML;
+
+// Модальное окно
 const modal = document.getElementById('modal');
 const openBtn = document.getElementById('openFormBtn');
 const closeBtn = document.getElementById('closeModal');
@@ -267,7 +342,7 @@ closeBtn.addEventListener('click', closeModal);
 modal.addEventListener('click', e => { if(e.target === modal) closeModal(); });
 document.addEventListener('keydown', e => { if(e.key === 'Escape' && modal.classList.contains('open')) closeModal(); });
 
-// ── Маска телефона ──
+// Маска телефона
 const phoneInput = document.getElementById('inpPhone');
 phoneInput.addEventListener('input', e => {
   let d = e.target.value.replace(/\D/g,'');
@@ -284,7 +359,7 @@ phoneInput.addEventListener('input', e => {
   e.target.value=r;
 });
 
-// ── Валидация + сохранение в Google Таблицу + редирект в бота ──
+// Отправка формы
 document.getElementById('leadForm').addEventListener('submit', async e => {
   e.preventDefault();
   const name = document.getElementById('inpName').value.trim();
