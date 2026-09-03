@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Испанский язык</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;900&family=Golos+Text:wght@400;500;600&family=Caveat:wght@700&display=swap" rel="stylesheet">
+
+<style>
+/* ══════════════════════════ ПАЛИТРА И БАЗА ══════════════════════════ */
+:root{
+  --paper:#F7EFE0;
+  --ink:#241812;
+  --red:#C6472E;
+  --sun:#F2B33D;
+  --shadow:6px 6px 0 rgba(36,24,18,.9);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:'Golos Text',sans-serif;
+  font-size:18px;line-height:1.7;
+  min-height:100vh;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:40px 20px;
+  position:relative;overflow-x:hidden;
+}
+
+/* Зернистая текстура */
+.noise{
+  position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.06;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E");
+}
+
+.wrap{position:relative;z-index:1;width:100%;max-width:720px;}
+
+h1,h2,.disp{font-family:'Unbounded',sans-serif}
+.hand{font-family:'Caveat',cursive}
+
+/* ══════════════════════════ ДЕКОР (СОЛНЦЕ) ══════════════════════════ */
+.sun-badge{
+  position:absolute;top:-60px;right:-40px;width:140px;height:140px;z-index:2;
+  animation:spin 25s linear infinite;pointer-events:none;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ══════════════════════════ ТЕКСТОВЫЙ БЛОК ══════════════════════════ */
+.text-card{
+  background:#fff;border:2px solid var(--ink);border-radius:16px;
+  padding:clamp(30px,5vw,50px);margin-bottom:40px;
+  box-shadow:var(--shadow);position:relative;
+}
+.text-card::before{
+  content:"";position:absolute;top:-14px;left:50%;transform:translateX(-50%) rotate(-2deg);
+  width:100px;height:28px;background:rgba(242,179,61,.8);z-index:3;
+}
+
+.text-card h1{
+  font-size:clamp(1.6rem,4vw,2.4rem);font-weight:900;line-height:1.15;
+  margin-bottom:1.5rem;text-transform:uppercase;
+}
+.text-card h1 span{color:var(--red)}
+
+.user-text{
+  font-size:clamp(1rem,2.5vw,1.15rem);color:rgba(36,24,18,.85);
+  white-space:pre-line;
+}
+
+/* ══════════════════════════ ВИДЕО (YouTube, 16:9) ══════════════════════════ */
+.video-frame{
+  position:relative;width:100%;aspect-ratio:16/9;
+  border:2px solid var(--ink);border-radius:16px;overflow:hidden;
+  background:#1E2B22;margin-bottom:40px;box-shadow:var(--shadow);
+}
+.video-frame iframe{
+  position:absolute;inset:0;width:100%;height:100%;border:0;display:block;
+}
+
+/* ══════════════════════════ КНОПКА ══════════════════════════ */
+.cta-btn{
+  display:block;width:100%;padding:22px;
+  background:var(--red);color:#FFF6E8;
+  font-family:'Unbounded',sans-serif;font-weight:700;font-size:clamp(1rem,3vw,1.3rem);
+  text-align:center;text-decoration:none;
+  border:2px solid var(--ink);border-radius:14px;cursor:pointer;
+  box-shadow:var(--shadow);transition:transform .2s,box-shadow .2s;
+}
+.cta-btn:hover{transform:translate(-3px,-3px);box-shadow:9px 9px 0 rgba(36,24,18,.9)}
+.cta-btn:active{transform:translate(2px,2px);box-shadow:2px 2px 0 rgba(36,24,18,.9)}
+
+.hand-hint{
+  text-align:center;margin-top:16px;font-family:'Caveat';font-size:22px;
+  color:var(--red);transform:rotate(-1.5deg);
+}
+
+/* ══════════════════════════ МОДАЛКА ══════════════════════════ */
+.modal-overlay{
+  display:none;position:fixed;inset:0;z-index:100;
+  background:rgba(20,12,8,.65);backdrop-filter:blur(4px);
+  justify-content:center;align-items:center;padding:20px;
+}
+.modal-overlay.open{display:flex}
+.modal-card{
+  background:var(--paper);border:2.5px solid var(--ink);border-radius:18px;
+  padding:clamp(24px,4vw,40px);width:100%;max-width:460px;
+  box-shadow:10px 10px 0 rgba(0,0,0,.5);position:relative;
+  animation:popIn .3s cubic-bezier(.2,.8,.3,1.1);
+}
+@keyframes popIn{from{opacity:0;transform:scale(.9) translateY(20px)}to{opacity:1;transform:none}}
+
+.close-x{
+  position:absolute;top:12px;right:14px;width:36px;height:36px;
+  border-radius:50%;border:2px solid var(--ink);background:#FFF9EC;
+  font-size:18px;cursor:pointer;display:grid;place-items:center;
+  transition:background .2s,transform .2s;
+}
+.close-x:hover{background:var(--sun);transform:rotate(90deg)}
+
+.modal-card h2{font-family:'Unbounded';font-size:22px;margin-bottom:6px}
+.modal-card .sub{font-size:14px;color:rgba(36,24,18,.6);margin-bottom:20px}
+
+.field{margin-bottom:14px}
+.field label{display:block;font-weight:600;font-size:13px;margin-bottom:4px;letter-spacing:.03em}
+.field label i{color:var(--red);font-style:normal}
+.field input{
+  width:100%;padding:14px 16px;font:inherit;font-size:16px;
+  background:#FFF9EC;border:2px solid var(--ink);border-radius:10px;outline:none;
+  transition:border-color .2s,box-shadow .2s;
+}
+.field input:focus{border-color:var(--red);box-shadow:4px 4px 0 var(--sun)}
+.field .err{display:none;font-size:12px;font-weight:600;color:var(--red);margin-top:4px}
+.field.error input{border-color:var(--red);animation:shake .3s}
+.field.error .err{display:block}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+
+.submit-btn{
+  width:100%;padding:16px;margin-top:8px;
+  background:var(--red);color:#FFF6E8;border:2px solid var(--ink);border-radius:10px;
+  font-family:'Unbounded';font-weight:700;font-size:15px;cursor:pointer;
+  box-shadow:4px 4px 0 rgba(36,24,18,.9);transition:transform .15s,box-shadow .15s;
+}
+.submit-btn:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 rgba(36,24,18,.9)}
+.submit-btn:disabled{opacity:.6;cursor:not-allowed;transform:none}
+
+.fine{font-size:11px;color:rgba(36,24,18,.45);text-align:center;margin-top:12px}
+
+@media(max-width:600px){
+  .sun-badge{width:100px;height:100px;top:-40px;right:-20px}
+  body{padding:30px 16px;justify-content:flex-start}
+}
+</style>
+</head>
+<body>
+
+<div class="noise" aria-hidden="true"></div>
+
+<div class="wrap">
+
+  <!-- Декоративное солнце -->
+  <svg class="sun-badge" viewBox="0 0 140 140" aria-hidden="true">
+    <defs><path id="circ" d="M70,70 m-54,0 a54,54 0 1,1 108,0 a54,54 0 1,1 -108,0"/></defs>
+    <circle cx="70" cy="70" r="68" fill="#F2B33D" stroke="#241812" stroke-width="2.5"/>
+    <circle cx="70" cy="70" r="32" fill="#F7EFE0" stroke="#241812" stroke-width="2"/>
+    <g stroke="#241812" stroke-width="2.5" stroke-linecap="round">
+      <path d="M70 46v-8M70 94v8M46 70h-8M94 70h8M53 53l-6-6M87 87l6 6M87 53l6-6M53 87l-6 6"/>
+    </g>
+    <circle cx="70" cy="70" r="14" fill="#C6472E" stroke="#241812" stroke-width="2"/>
+    <text font-family="Unbounded,sans-serif" font-size="10" font-weight="700" fill="#241812" letter-spacing="2.5">
+      <textPath href="#circ">ESPAÑOL • SOL &amp; SAL • HOLA • </textPath>
+    </text>
+  </svg>
+
+  <!-- 
+    ═══════════════════════════════════════════════════
+    БЛОК 1: ВАШ ТЕКСТ
+    Вставьте свой готовый текст внутрь <div class="user-text">
+    Переносы строк сохранятся автоматически.
+    ═══════════════════════════════════════════════════
+  -->
+  <div class="text-card">
+    <h1>Заголовок <span>вашего оффера</span></h1>
+    <div class="user-text">Здесь будет ваш заготовленный текст.
+Просто вставьте его сюда вместо этого черновика.
+
+Верстка адаптируется под любую длину.
+Стиль «испанской открытки» сохранится.</div>
+  </div>
+
+  <!-- 
+    ═══════════════════════════════════════════════════
+    БЛОК 2: ВИДЕО (YouTube)
+    Видео подключено по ссылке. Чтобы заменить на другое —
+    поменяйте VIDEO_ID в src ниже (часть после /embed/).
+    Скорость регулируется в самом плеере YouTube (шестерёнка → Скорость).
+    ═══════════════════════════════════════════════════
+  -->
+  <div class="video-frame">
+    <iframe 
+      src="https://www.youtube.com/embed/91Mstn4uCWc" 
+      title="Видео о школе испанского"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+      allowfullscreen>
+    </iframe>
+  </div>
+
+  <!-- БЛОК 3: КНОПКА -->
+  <button class="cta-btn" id="openFormBtn">ЗАПОЛНИТЬ АНКЕТУ И ПЕРЕЙТИ →</button>
+  <p class="hand-hint">анкета займёт 30 секунд ☀</p>
+
+</div>
+
+<!-- МОДАЛЬНОЕ ОКНО С АНКЕТОЙ -->
+<div class="modal-overlay" id="modal">
+  <div class="modal-card">
+    <button class="close-x" id="closeModal" aria-label="Закрыть">✕</button>
+    <h2>¡Hola! Анкета</h2>
+    <p class="sub">Данные сохранятся, а затем мы перенаправим вас в Telegram-бот</p>
+
+    <form id="leadForm" novalidate>
+      <div class="field" id="fName">
+        <label for="inpName">ФИО <i>*</i></label>
+        <input type="text" id="inpName" placeholder="Иванова Мария" autocomplete="name">
+        <span class="err">Введите ФИО (минимум 2 символа)</span>
+      </div>
+      <div class="field" id="fEmail">
+        <label for="inpEmail">Почта <i>*</i></label>
+        <input type="email" id="inpEmail" placeholder="maria@example.com" autocomplete="email">
+        <span class="err">Введите корректный e-mail</span>
+      </div>
+      <div class="field" id="fPhone">
+        <label for="inpPhone">Телефон <i>*</i></label>
+        <input type="tel" id="inpPhone" placeholder="+7 (___) ___-__-__" autocomplete="tel">
+        <span class="err">Введите номер телефона (мин. 10 цифр)</span>
+      </div>
+      <button type="submit" class="submit-btn" id="submitBtn">Отправить и перейти в бота →</button>
+      <p class="fine">Нажимая кнопку, вы соглашаетесь на обработку персональных данных</p>
+    </form>
+  </div>
+</div>
+
+<script>
+// =============================================
+// ⚙️ НАСТРОЙКИ
+// =============================================
+const TELEGRAM_BOT_URL = 'https://t.me/YOUR_BOT_USERNAME';  // ссылка на вашего бота
+const GOOGLE_SCRIPT_URL = 'ВАШ_WEB_APP_URL';               // ссылка из Google Apps Script (сохранение в таблицу)
+
+// ── Модальное окно ──
+const modal = document.getElementById('modal');
+const openBtn = document.getElementById('openFormBtn');
+const closeBtn = document.getElementById('closeModal');
+
+openBtn.addEventListener('click', () => {
+  modal.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  setTimeout(() => document.getElementById('inpName').focus(), 200);
+});
+
+function closeModal() {
+  modal.classList.remove('open');
+  document.body.style.overflow = '';
+}
+closeBtn.addEventListener('click', closeModal);
+modal.addEventListener('click', e => { if(e.target === modal) closeModal(); });
+document.addEventListener('keydown', e => { if(e.key === 'Escape' && modal.classList.contains('open')) closeModal(); });
+
+// ── Маска телефона ──
+const phoneInput = document.getElementById('inpPhone');
+phoneInput.addEventListener('input', e => {
+  let d = e.target.value.replace(/\D/g,'');
+  if(!d.length){e.target.value='';return;}
+  if(d[0]==='8') d='7'+d.slice(1);
+  if(d[0]!=='7'){e.target.value='+'+d.slice(0,15);return;}
+  d=d.slice(0,11);
+  let r='+7';
+  if(d.length>1) r+=' ('+d.slice(1,4);
+  if(d.length>=4) r+=')';
+  if(d.length>4) r+=' '+d.slice(4,7);
+  if(d.length>7) r+='-'+d.slice(7,9);
+  if(d.length>9) r+='-'+d.slice(9,11);
+  e.target.value=r;
+});
+
+// ── Валидация + сохранение в Google Таблицу + редирект в бота ──
+document.getElementById('leadForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  const name = document.getElementById('inpName').value.trim();
+  const email = document.getElementById('inpEmail').value.trim();
+  const phone = phoneInput.value.replace(/\D/g,'');
+  const btn = document.getElementById('submitBtn');
+
+  let ok = true;
+  const setErr = (id, bad) => {
+    document.getElementById(id).classList.toggle('error', bad);
+    if(bad) ok = false;
+  };
+
+  setErr('fName', name.length < 2);
+  setErr('fEmail', !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email));
+  setErr('fPhone', phone.length < 10 || phone.length > 15);
+  if(!ok) return;
+
+  btn.disabled = true;
+  btn.textContent = 'Отправляем...';
+
+  try {
+    if(GOOGLE_SCRIPT_URL.startsWith('http')) {
+      await fetch(GOOGLE_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ name, email, phone })
+      });
+    }
+    window.location.href = TELEGRAM_BOT_URL;
+  } catch (err) {
+    alert('Ошибка отправки. Попробуйте позже.');
+    btn.disabled = false;
+    btn.textContent = 'Отправить и перейти в бота →';
+  }
+});
+</script>
+</body>
+</html>
