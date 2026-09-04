@@ -11,13 +11,12 @@
 <style>
 :root{
   --paper:#F7EFE0;
-  --paper2:#EFE3CC;
   --ink:#241812;
   --red:#C6472E;
   --red-d:#A63A24;
   --sun:#F2B33D;
-  --pine:#1E2B22;
   --shadow:6px 6px 0 rgba(36,24,18,.9);
+  --shadow-sm:4px 4px 0 rgba(36,24,18,.85);
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -86,7 +85,7 @@ h1,h2,h3{font-family:'Unbounded',sans-serif}
 .ticker-track i{font-style:normal;color:var(--sun)}
 @keyframes mar{to{transform:translateX(-50%)}}
 
-/* ═══ ТЕКСТ ═══ */
+/* ═══ ТЕКСТОВАЯ КАРТОЧКА ═══ */
 .text-card{
   background:#fff;border:2px solid var(--ink);border-radius:16px;
   padding:clamp(30px,5vw,50px);margin-bottom:clamp(40px,6vw,70px);
@@ -97,11 +96,46 @@ h1,h2,h3{font-family:'Unbounded',sans-serif}
   width:100px;height:28px;background:rgba(242,179,61,.8);z-index:3;
 }
 .text-card h2{
-  font-size:clamp(1.5rem,3.5vw,2rem);font-weight:900;line-height:1.2;
-  margin-bottom:1.5rem;text-transform:uppercase;
+  font-size:clamp(1.35rem,3.4vw,1.9rem);font-weight:900;line-height:1.25;
+  margin-bottom:1.6rem;
 }
 .text-card h2 span{color:var(--red)}
-.user-text{font-size:clamp(1rem,2.5vw,1.1rem);color:rgba(36,24,18,.85);white-space:pre-line}
+
+/* цитата с жёлтым маркером */
+.lead-quote{margin-bottom:1.4rem}
+.lead-quote span{
+  font-family:'Unbounded';font-weight:700;
+  font-size:clamp(1.05rem,2.6vw,1.3rem);line-height:1.5;
+  background:linear-gradient(transparent 60%, rgba(242,179,61,.55) 60%);
+}
+
+.card-p{margin-bottom:1.2rem;color:rgba(36,24,18,.85)}
+
+/* карточка знакомства с преподавателем */
+.teacher-box{
+  background:#FFF9EC;border:2px dashed var(--ink);border-radius:12px;
+  padding:1.2rem 1.4rem;margin:1.6rem 0;font-weight:500;
+}
+
+/* список «внутри видео» */
+.list-title{
+  font-family:'Unbounded';font-size:14px;font-weight:700;
+  letter-spacing:.08em;text-transform:uppercase;margin:1.6rem 0 .9rem;
+}
+.video-list{list-style:none;display:grid;gap:.8rem;margin-bottom:1.6rem}
+.video-list li{
+  background:#fff;border:2px solid var(--ink);border-radius:10px;
+  padding:.85rem 1.1rem;font-weight:600;box-shadow:var(--shadow-sm);
+  transition:transform .25s,box-shadow .25s;
+}
+.video-list li:hover{transform:translateY(-3px);box-shadow:5px 6px 0 rgba(36,24,18,.85)}
+
+/* жёлтая заметка-призыв */
+.cta-note{
+  background:var(--sun);border:2px solid var(--ink);border-radius:12px;
+  padding:1.2rem 1.4rem;font-weight:600;box-shadow:var(--shadow-sm);
+  transform:rotate(-.5deg);
+}
 
 /* ═══ ВИДЕО ═══ */
 .video-sect{margin-bottom:clamp(40px,6vw,70px)}
@@ -224,7 +258,7 @@ h1,h2,h3{font-family:'Unbounded',sans-serif}
       <span class="line"><span class="line-in">для взрослых</span></span>
       <span class="line"><span class="line-in red">без стресса</span></span>
     </h1>
-    <p class="hero-sub rv" style="--d:.1s">Авторская методика Алёны Кичигиной: 14 лет преподавания, 24 года жизни в Испании. Структурированный подход для занятых людей 40+.</p>
+    <p class="hero-sub rv" style="--d:.1s">Авторская методика Алёны: 14 лет преподавания, 24 года жизни в Испании. Структурированный подход для занятых людей 40+.</p>
   </section>
 
 </div>
@@ -238,22 +272,26 @@ h1,h2,h3{font-family:'Unbounded',sans-serif}
 
 <div class="wrap">
 
-  <!-- 
-    ═══════════════════════════════════════════════════
-    БЛОК 1: ВАШ ТЕКСТ
-    Вставьте свой готовый текст внутрь <div class="user-text">
-    ═══════════════════════════════════════════════════
-  -->
+  <!-- ═══ БЛОК 1: ВАШ ТЕКСТ (вставлен дословно) ═══ -->
   <div class="text-card rv">
-    <h2>Почему <span>возраст — не помеха</span></h2>
-    <div class="user-text">Здесь будет ваш заготовленный текст.
-Просто вставьте его сюда вместо этого черновика.
+    <h2>Как заговорить на испанском <span>за 2 месяца</span> без зубрежки правил?!</h2>
 
-Верстка адаптируется под любую длину.
-Стиль «испанской открытки» сохранится.</div>
+    <p class="lead-quote"><span>Вы не «неспособные». Вас просто неправильно учили.</span></p>
+
+    <p class="card-p">Все считают, что испанский - это сложно, а с возрастом язык вообще не учится. Это миф. Для русскоязычных испанский один из самых легких языков в мире, если к нему есть система.</p>
+
+    <div class="teacher-box">😇 Меня зовут Алёна 24 года живу в Испании, 14 лет опыта преподавания. За 15 минут этого видео я докажу, что проблема торможения в языке не в вашей памяти или возрасте, а в методах, которые вам навязывали.</div>
+
+    <p class="list-title">Внутри видео:</p>
+    <ul class="video-list">
+      <li>📍 Почему Duolingo и школы не дают разговорного результата.</li>
+      <li>📍 Главный секрет, как заговорить с нуля уже через пару месяцев.</li>
+    </ul>
+
+    <p class="cta-note">Понравилась концепция? Давайте разберем ее до винтика!<br>Жмите кнопку ниже, чтобы перейти в Telegram-бот и получить доступ к полному 40-минутному видеоуроку по моей авторской методике 🔥</p>
   </div>
 
-  <!-- БЛОК 2: ВИДЕО -->
+  <!-- ═══ БЛОК 2: ВИДЕО ═══ -->
   <section class="video-sect rv" style="--d:.1s">
     <p class="video-label"><b>▶</b> Посмотрите видео</p>
     <div class="video-frame">
@@ -266,7 +304,7 @@ h1,h2,h3{font-family:'Unbounded',sans-serif}
     </div>
   </section>
 
-  <!-- БЛОК 3: КНОПКА -->
+  <!-- ═══ БЛОК 3: КНОПКА ═══ -->
   <section class="cta-sect rv" style="--d:.1s">
     <button class="cta-btn" id="openFormBtn">ЗАПОЛНИТЬ АНКЕТУ И ПЕРЕЙТИ →</button>
     <p class="hand-hint">анкета займёт 30 секунд ☀</p>
