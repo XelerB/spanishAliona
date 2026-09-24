@@ -31,21 +31,16 @@ body{
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E");
 }
 
-.wrap{position:relative;z-index:1;width:100%;max-width:780px;margin:0 auto;padding:0 24px}
+.wrap{position:relative;z-index:1;width:100%;max-width:860px;margin:0 auto;padding:0 24px}
 h1,h2,h3{font-family:'Unbounded',sans-serif}
 
 .rv{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s cubic-bezier(.22,.8,.3,1);transition-delay:var(--d,0s)}
 .rv.in{opacity:1;transform:none}
 
-/* ═══ ДЕКОР: СОЛНЦЕ ═══ */
-.sun-badge{
-  position:absolute;top:-50px;right:-30px;width:130px;height:130px;z-index:2;
-  animation:spin 22s linear infinite;pointer-events:none;
-}
-@keyframes spin{to{transform:rotate(360deg)}}
-
 /* ═══ ГЕРОЙ ═══ */
 .hero{padding:clamp(60px,10vw,110px) 0 clamp(40px,6vw,60px);position:relative}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(28px,5vw,56px);align-items:center}
+
 .kicker{
   display:inline-flex;align-items:center;gap:.6rem;
   border:1.5px solid var(--ink);border-radius:999px;padding:.45rem 1.1rem;
@@ -56,7 +51,7 @@ h1,h2,h3{font-family:'Unbounded',sans-serif}
 @keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.5);opacity:.4}}
 
 .hero-title{
-  font-size:clamp(2.2rem,6vw,3.4rem);font-weight:900;line-height:1.08;
+  font-size:clamp(2rem,5vw,3rem);font-weight:900;line-height:1.08;
   text-transform:uppercase;letter-spacing:-.01em;margin-bottom:1.4rem;
 }
 .hero-title .line{display:block;overflow:hidden;padding-bottom:.08em;margin-bottom:-.08em}
@@ -70,6 +65,34 @@ h1,h2,h3{font-family:'Unbounded',sans-serif}
   background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='8' viewBox='0 0 40 8'%3E%3Cpath d='M0 5 Q5 0 10 5 T20 5 T30 5 T40 5' fill='none' stroke='%23F2B33D' stroke-width='3'/%3E%3C/svg%3E") repeat-x bottom / auto 100%;
 }
 .hero-sub{font-size:clamp(1rem,2.5vw,1.15rem);color:rgba(36,24,18,.8);max-width:38rem}
+
+/* ═══ ФОТО-ОТКРЫТКА ═══ */
+.hero-photo{position:relative}
+.photo-frame{
+  position:relative;background:#fff;border:2px solid var(--ink);border-radius:14px;
+  padding:12px 12px 14px;box-shadow:var(--shadow);transform:rotate(2.5deg);
+  transition:transform .45s cubic-bezier(.2,.8,.3,1),box-shadow .45s;
+}
+.photo-frame:hover{transform:rotate(0deg) translateY(-6px);box-shadow:9px 11px 0 rgba(36,24,18,.9)}
+.photo-frame::before{
+  content:"";position:absolute;top:-13px;left:50%;width:90px;height:26px;
+  transform:translateX(-50%) rotate(-3deg);background:rgba(242,179,61,.8);
+  box-shadow:0 1px 3px rgba(0,0,0,.15);z-index:2;
+}
+.photo-frame img{
+  width:100%;aspect-ratio:3/4;object-fit:cover;object-position:center 25%;
+  border-radius:8px;display:block;
+}
+.stamp{
+  position:absolute;top:24px;right:24px;z-index:3;
+  border:2px dashed var(--red);color:var(--red);background:rgba(255,255,255,.9);
+  font-family:'Unbounded';font-size:11px;font-weight:800;letter-spacing:.1em;
+  padding:.35rem .55rem;transform:rotate(6deg);border-radius:4px;
+}
+.hero-photo figcaption{
+  text-align:center;font-family:'Caveat';font-size:26px;color:var(--red);
+  margin-top:14px;transform:rotate(-1.5deg);
+}
 
 /* ═══ БЕГУЩАЯ СТРОКА ═══ */
 .ticker{
@@ -101,7 +124,6 @@ h1,h2,h3{font-family:'Unbounded',sans-serif}
 }
 .text-card h2 span{color:var(--red)}
 
-/* цитата с жёлтым маркером */
 .lead-quote{margin-bottom:1.4rem}
 .lead-quote span{
   font-family:'Unbounded';font-weight:700;
@@ -111,13 +133,11 @@ h1,h2,h3{font-family:'Unbounded',sans-serif}
 
 .card-p{margin-bottom:1.2rem;color:rgba(36,24,18,.85)}
 
-/* карточка знакомства с преподавателем */
 .teacher-box{
   background:#FFF9EC;border:2px dashed var(--ink);border-radius:12px;
   padding:1.2rem 1.4rem;margin:1.6rem 0;font-weight:500;
 }
 
-/* список «внутри видео» */
 .list-title{
   font-family:'Unbounded';font-size:14px;font-weight:700;
   letter-spacing:.08em;text-transform:uppercase;margin:1.6rem 0 .9rem;
@@ -130,7 +150,6 @@ h1,h2,h3{font-family:'Unbounded',sans-serif}
 }
 .video-list li:hover{transform:translateY(-3px);box-shadow:5px 6px 0 rgba(36,24,18,.85)}
 
-/* жёлтая заметка-призыв */
 .cta-note{
   background:var(--sun);border:2px solid var(--ink);border-radius:12px;
   padding:1.2rem 1.4rem;font-weight:600;box-shadow:var(--shadow-sm);
@@ -217,8 +236,11 @@ h1,h2,h3{font-family:'Unbounded',sans-serif}
 .submit-btn:disabled{opacity:.6;cursor:not-allowed;transform:none}
 .fine{font-size:11px;color:rgba(36,24,18,.45);text-align:center;margin-top:12px}
 
+@media(max-width:760px){
+  .hero-grid{grid-template-columns:1fr}
+  .hero-photo{max-width:340px;margin:0 auto}
+}
 @media(max-width:600px){
-  .sun-badge{width:100px;height:100px;top:-35px;right:-15px}
   .wrap{padding:0 16px}
 }
 @media(prefers-reduced-motion:reduce){
@@ -236,29 +258,28 @@ h1,h2,h3{font-family:'Unbounded',sans-serif}
 
 <div class="wrap">
 
-  <!-- Декоративное солнце -->
-  <svg class="sun-badge" viewBox="0 0 140 140" aria-hidden="true">
-    <defs><path id="circ" d="M70,70 m-54,0 a54,54 0 1,1 108,0 a54,54 0 1,1 -108,0"/></defs>
-    <circle cx="70" cy="70" r="68" fill="#F2B33D" stroke="#241812" stroke-width="2.5"/>
-    <circle cx="70" cy="70" r="32" fill="#F7EFE0" stroke="#241812" stroke-width="2"/>
-    <g stroke="#241812" stroke-width="2.5" stroke-linecap="round">
-      <path d="M70 46v-8M70 94v8M46 70h-8M94 70h8M53 53l-6-6M87 87l6 6M87 53l6-6M53 87l-6 6"/>
-    </g>
-    <circle cx="70" cy="70" r="14" fill="#C6472E" stroke="#241812" stroke-width="2"/>
-    <text font-family="Unbounded,sans-serif" font-size="10" font-weight="700" fill="#241812" letter-spacing="2.5">
-      <textPath href="#circ">ESPAÑOL • SOL &amp; SAL • HOLA • </textPath>
-    </text>
-  </svg>
-
-  <!-- ГЕРОЙ -->
+  <!-- ГЕРОЙ: заголовок + фото-открытка -->
   <section class="hero">
-    <p class="kicker rv"><i></i>Школа испанского языка</p>
-    <h1 class="hero-title">
-      <span class="line"><span class="line-in">Испанский</span></span>
-      <span class="line"><span class="line-in">для взрослых</span></span>
-      <span class="line"><span class="line-in red">без стресса</span></span>
-    </h1>
-    <p class="hero-sub rv" style="--d:.1s">Авторская методика Алёны: 14 лет преподавания, 24 года жизни в Испании. Структурированный подход для занятых людей 40+.</p>
+    <div class="hero-grid">
+      <div>
+        <p class="kicker rv"><i></i>Школа испанского языка</p>
+        <h1 class="hero-title">
+          <span class="line"><span class="line-in">Испанский</span></span>
+          <span class="line"><span class="line-in">для взрослых</span></span>
+          <span class="line"><span class="line-in red">без стресса</span></span>
+        </h1>
+        <p class="hero-sub rv" style="--d:.1s">Авторская методика Алёны: 14 лет преподавания, 24 года жизни в Испании. Структурированный подход для занятых людей 40+.</p>
+      </div>
+
+      <!-- ФОТО: сохраните файл рядом с index.html под именем alena.jpg -->
+      <figure class="hero-photo rv" style="--d:.15s">
+        <div class="photo-frame">
+          <img src="alena.jpg" alt="Алёна — преподаватель испанского языка">
+          <span class="stamp">ES</span>
+        </div>
+        <figcaption>Алёна · 24 года в Испании</figcaption>
+      </figure>
+    </div>
   </section>
 
 </div>
@@ -272,7 +293,7 @@ h1,h2,h3{font-family:'Unbounded',sans-serif}
 
 <div class="wrap">
 
-  <!-- ═══ БЛОК 1: ВАШ ТЕКСТ (вставлен дословно) ═══ -->
+  <!-- ═══ БЛОК 1: ВАШ ТЕКСТ ═══ -->
   <div class="text-card rv">
     <h2>Как заговорить на испанском <span>за 2 месяца</span> без зубрежки правил?!</h2>
 
