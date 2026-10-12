@@ -37,22 +37,13 @@ h1,h2,h3{font-family:'Unbounded',sans-serif}
 .rv{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s cubic-bezier(.22,.8,.3,1);transition-delay:var(--d,0s)}
 .rv.in{opacity:1;transform:none}
 
-/* ═══ ГЕРОЙ ═══ */
+/* ═══ ГЕРОЙ (начало страницы) ═══ */
 .hero{padding:clamp(60px,10vw,110px) 0 clamp(40px,6vw,60px);position:relative}
 .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(28px,5vw,56px);align-items:center}
 
-.kicker{
-  display:inline-flex;align-items:center;gap:.6rem;
-  border:1.5px solid var(--ink);border-radius:999px;padding:.45rem 1.1rem;
-  font-size:12.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
-  background:#FFF9EC;margin-bottom:1.8rem;
-}
-.kicker i{width:8px;height:8px;border-radius:50%;background:var(--red);animation:pulse 2s infinite}
-@keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.5);opacity:.4}}
-
 .hero-title{
-  font-size:clamp(2rem,5vw,3rem);font-weight:900;line-height:1.08;
-  text-transform:uppercase;letter-spacing:-.01em;margin-bottom:1.4rem;
+  font-size:clamp(1.9rem,4.6vw,2.9rem);font-weight:900;line-height:1.1;
+  text-transform:uppercase;letter-spacing:-.01em;margin-bottom:1.6rem;
 }
 .hero-title .line{display:block;overflow:hidden;padding-bottom:.08em;margin-bottom:-.08em}
 .hero-title .line-in{display:inline-block;transform:translateY(115%);animation:rise .95s cubic-bezier(.2,.85,.25,1) forwards}
@@ -64,7 +55,11 @@ h1,h2,h3{font-family:'Unbounded',sans-serif}
   content:"";position:absolute;left:0;right:0;bottom:.02em;height:.14em;
   background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='8' viewBox='0 0 40 8'%3E%3Cpath d='M0 5 Q5 0 10 5 T20 5 T30 5 T40 5' fill='none' stroke='%23F2B33D' stroke-width='3'/%3E%3C/svg%3E") repeat-x bottom / auto 100%;
 }
-.hero-sub{font-size:clamp(1rem,2.5vw,1.15rem);color:rgba(36,24,18,.8);max-width:38rem}
+
+/* список методики */
+.hero-list{list-style:none;display:grid;gap:.55rem;font-weight:600;font-size:clamp(1rem,2.4vw,1.12rem)}
+.hero-list li{position:relative;padding-left:1.7rem}
+.hero-list li::before{content:"—";position:absolute;left:0;color:var(--red);font-weight:800}
 
 /* ═══ ФОТО-ОТКРЫТКА ═══ */
 .hero-photo{position:relative}
@@ -89,9 +84,14 @@ h1,h2,h3{font-family:'Unbounded',sans-serif}
   font-family:'Unbounded';font-size:11px;font-weight:800;letter-spacing:.1em;
   padding:.35rem .55rem;transform:rotate(6deg);border-radius:4px;
 }
-.hero-photo figcaption{
-  text-align:center;font-family:'Caveat';font-size:26px;color:var(--red);
-  margin-top:14px;transform:rotate(-1.5deg);
+/* цитата-стикер под фото в углу */
+.quote-note{
+  display:inline-block;position:relative;z-index:4;
+  margin:-20px 0 0 -10px;
+  background:var(--sun);border:2px solid var(--ink);border-radius:10px;
+  padding:.75rem 1.1rem;max-width:270px;
+  font-family:'Caveat';font-size:22px;line-height:1.3;
+  transform:rotate(-3deg);box-shadow:4px 4px 0 rgba(36,24,18,.85);
 }
 
 /* ═══ БЕГУЩАЯ СТРОКА ═══ */
@@ -127,27 +127,40 @@ h1,h2,h3{font-family:'Unbounded',sans-serif}
 .lead-quote{margin-bottom:1.4rem}
 .lead-quote span{
   font-family:'Unbounded';font-weight:700;
-  font-size:clamp(1.05rem,2.6vw,1.3rem);line-height:1.5;
+  font-size:clamp(1.02rem,2.5vw,1.25rem);line-height:1.5;
   background:linear-gradient(transparent 60%, rgba(242,179,61,.55) 60%);
 }
 
 .card-p{margin-bottom:1.2rem;color:rgba(36,24,18,.85)}
 
+.myth{
+  font-family:'Unbounded';font-weight:900;color:var(--red);
+  font-size:clamp(1.2rem,3vw,1.5rem);text-transform:uppercase;
+  margin:.2rem 0 1.1rem;letter-spacing:.02em;
+}
+
 .teacher-box{
   background:#FFF9EC;border:2px dashed var(--ink);border-radius:12px;
-  padding:1.2rem 1.4rem;margin:1.6rem 0;font-weight:500;
+  padding:1.2rem 1.4rem;margin:1.6rem 0;font-weight:500;white-space:pre-line;
+}
+
+.question{
+  font-family:'Unbounded';font-weight:700;font-size:clamp(1.05rem,2.6vw,1.25rem);
+  line-height:1.5;margin:1.8rem 0 1.4rem;
+  border-left:6px solid var(--red);padding-left:1.1rem;
 }
 
 .list-title{
   font-family:'Unbounded';font-size:14px;font-weight:700;
-  letter-spacing:.08em;text-transform:uppercase;margin:1.6rem 0 .9rem;
+  letter-spacing:.08em;text-transform:uppercase;margin:0 0 .9rem;
 }
 .video-list{list-style:none;display:grid;gap:.8rem;margin-bottom:1.6rem}
 .video-list li{
   background:#fff;border:2px solid var(--ink);border-radius:10px;
-  padding:.85rem 1.1rem;font-weight:600;box-shadow:var(--shadow-sm);
-  transition:transform .25s,box-shadow .25s;
+  padding:.85rem 1.1rem .85rem 2.2rem;font-weight:600;box-shadow:var(--shadow-sm);
+  position:relative;transition:transform .25s,box-shadow .25s;
 }
+.video-list li::before{content:"•";position:absolute;left:1.05rem;top:.7rem;color:var(--red);font-size:1.35em;font-weight:900;line-height:1}
 .video-list li:hover{transform:translateY(-3px);box-shadow:5px 6px 0 rgba(36,24,18,.85)}
 
 .cta-note{
@@ -239,6 +252,7 @@ h1,h2,h3{font-family:'Unbounded',sans-serif}
 @media(max-width:760px){
   .hero-grid{grid-template-columns:1fr}
   .hero-photo{max-width:340px;margin:0 auto}
+  .quote-note{margin-left:0;max-width:100%}
 }
 @media(max-width:600px){
   .wrap{padding:0 16px}
@@ -258,26 +272,30 @@ h1,h2,h3{font-family:'Unbounded',sans-serif}
 
 <div class="wrap">
 
-  <!-- ГЕРОЙ: заголовок + фото-открытка -->
+  <!-- ═══ НАЧАЛО СТРАНИЦЫ: методика + фото ═══ -->
   <section class="hero">
     <div class="hero-grid">
       <div>
-        <p class="kicker rv"><i></i>Школа испанского языка</p>
         <h1 class="hero-title">
-          <span class="line"><span class="line-in">Испанский</span></span>
-          <span class="line"><span class="line-in">для взрослых</span></span>
-          <span class="line"><span class="line-in red">без стресса</span></span>
+          <span class="line"><span class="line-in">Авторская методика</span></span>
+          <span class="line"><span class="line-in">преподавания</span></span>
+          <span class="line"><span class="line-in red">Алёны Кичигиной:</span></span>
         </h1>
-        <p class="hero-sub rv" style="--d:.1s">Авторская методика Алёны: 14 лет преподавания, 24 года жизни в Испании. Структурированный подход для занятых людей 40+.</p>
+        <ul class="hero-list rv" style="--d:.15s">
+          <li>24 года в Испании</li>
+          <li>14 лет в преподавании</li>
+          <li>обучалась в Испании</li>
+          <li>структурированный подход для занятых людей 40+</li>
+        </ul>
       </div>
 
-      <!-- ФОТО: сохраните файл рядом с index.html под именем alena.jpg -->
-      <figure class="hero-photo rv" style="--d:.15s">
+      <!-- ФОТО: файл alena.jpg лежит рядом с index.html -->
+      <figure class="hero-photo rv" style="--d:.1s">
         <div class="photo-frame">
-          <img src="alena.jpg" alt="Алёна — преподаватель испанского языка">
+          <img src="alena.jpg" alt="Алёна Кичигина — преподаватель испанского языка">
           <span class="stamp">ES</span>
         </div>
-        <figcaption>Алёна · 24 года в Испании</figcaption>
+        <div class="quote-note">«Не существует НЕ способных людей! Проблема всегда в подходе!»</div>
       </figure>
     </div>
   </section>
@@ -293,26 +311,40 @@ h1,h2,h3{font-family:'Unbounded',sans-serif}
 
 <div class="wrap">
 
-  <!-- ═══ БЛОК 1: ВАШ ТЕКСТ ═══ -->
+  <!-- ═══ ОСНОВНОЙ ТЕКСТ ═══ -->
   <div class="text-card rv">
-    <h2>Как заговорить на испанском <span>за 2 месяца</span> без зубрежки правил?!</h2>
+    <h2>Как заговорить на испанском <span>за 2 месяца</span> без зубрежки и правил?</h2>
 
-    <p class="lead-quote"><span>Вы не «неспособные». Вас просто неправильно учили.</span></p>
+    <p class="lead-quote"><span>Вы НЕ «неспособные», просто нам никто никогда не показывал как правильно учиться!</span></p>
 
-    <p class="card-p">Все считают, что испанский - это сложно, а с возрастом язык вообще не учится. Это миф. Для русскоязычных испанский один из самых легких языков в мире, если к нему есть система.</p>
+    <p class="card-p">Многие уверены: испанский — это сложно. А с возрастом язык вообще не учится…</p>
 
-    <div class="teacher-box">😇 Меня зовут Алёна 24 года живу в Испании, 14 лет опыта преподавания. За 15 минут этого видео я докажу, что проблема торможения в языке не в вашей памяти или возрасте, а в методах, которые вам навязывали.</div>
+    <p class="myth">Это миф!</p>
 
-    <p class="list-title">Внутри видео:</p>
+    <p class="card-p">Для русскоязычных испанский — один из самых лёгких языков в мире.<br>Если к нему есть понятная система.</p>
+
+    <div class="teacher-box">Меня зовут Алёна Кичигина.
+За 15 минут этого видео я покажу вам главное:
+проблема не в вашей памяти.
+Не в возрасте.
+
+Проблема — в методах, которые вам навязывали годами.</div>
+
+    <p class="card-p">Я приглашаю вас посмотреть это видео до конца.<br>Там я делюсь своими наблюдениями — основанными на личном опыте обучения, 14 годах преподавания и жизни в Испании.<br><br>Вы поймёте, почему именно так всё получается — и почему у вас точно получится тоже.</p>
+
+    <p class="question">Хотите заговорить по-испански, а не просто годами учить отдельные слова?</p>
+
+    <p class="list-title">В этом видео вы узнаете:</p>
     <ul class="video-list">
-      <li>📍 Почему Duolingo и школы не дают разговорного результата.</li>
-      <li>📍 Главный секрет, как заговорить с нуля уже через пару месяцев.</li>
+      <li>почему Duolingo и обычные занятия часто не приводят к разговорной речи;</li>
+      <li>что на самом деле мешает взрослым ученикам заговорить;</li>
+      <li>как выстроить обучение так, чтобы уже через несколько месяцев использовать испанский в жизни.</li>
     </ul>
 
-    <p class="cta-note">Понравилась концепция? Давайте разберем ее до винтика!<br>Жмите кнопку ниже, чтобы перейти в Telegram-бот и получить доступ к полному 40-минутному видеоуроку по моей авторской методике 🔥</p>
+    <p class="cta-note">Переходите в Telegram-бот и смотрите полное 40-минутное видео по моей авторской методике 🔥</p>
   </div>
 
-  <!-- ═══ БЛОК 2: ВИДЕО ═══ -->
+  <!-- ═══ ВИДЕО ═══ -->
   <section class="video-sect rv" style="--d:.1s">
     <p class="video-label"><b>▶</b> Посмотрите видео</p>
     <div class="video-frame">
@@ -325,7 +357,7 @@ h1,h2,h3{font-family:'Unbounded',sans-serif}
     </div>
   </section>
 
-  <!-- ═══ БЛОК 3: КНОПКА ═══ -->
+  <!-- ═══ КНОПКА ═══ -->
   <section class="cta-sect rv" style="--d:.1s">
     <button class="cta-btn" id="openFormBtn">ЗАПОЛНИТЬ АНКЕТУ И ПЕРЕЙТИ →</button>
     <p class="hand-hint">анкета займёт 30 секунд ☀</p>
