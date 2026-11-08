@@ -218,6 +218,13 @@ h1,h2,h3{font-family:'Unbounded',sans-serif}
   .hero-title .line-in{transform:none}
   .ticker{overflow-x:auto}
 }
+
+#sticky-cta{display:none}
+@media(max-width:767px){
+  #sticky-cta{display:block;position:fixed;left:0;right:0;bottom:0;z-index:50;padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:rgba(255,255,255,.92)}
+  #sticky-cta button{width:100%;padding:14px;border:0;border-radius:10px;background:var(--red,#b8321f);color:#fff;font-family:inherit;font-weight:700;font-size:16px}
+  body{padding-bottom:76px}
+}
 </style>
 </head>
 <body>
@@ -432,6 +439,10 @@ window.LEELOO = function(){
 </script>
 <!-- end leeloo init code -->
 <script>window.LEELOO_LEADGENTOOLS = (window.LEELOO_LEADGENTOOLS || []).concat('wg55xk');</script>
+
+<div id="sticky-cta">
+  <button type="button" onclick="document.getElementById('leeloo_action_element').click()">ПОЛУЧИТЬ БЕСПЛАТНОЕ ВИДЕО →</button>
+</div>
 
 </body>
 </html>
