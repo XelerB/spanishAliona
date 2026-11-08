@@ -321,6 +321,11 @@ h1,h2,h3{font-family:'Unbounded',sans-serif}
 
 <!-- МОДАЛКА -->
 <div>
+  <p class="consent">Нажимая кнопку, вы соглашаетесь с
+    <a href="politika-konfidencialnosti-ru.html" target="_blank">политикой конфиденциальности</a>
+  </p>
+</div>
+<div>
   <div class="modal-card">
     <button class="close-x" id="closeModal" aria-label="Закрыть">✕</button>
     <h2>¡Hola! Анкета</h2>
@@ -349,9 +354,7 @@ h1,h2,h3{font-family:'Unbounded',sans-serif}
 </div>
 
 <script>
-const TELEGRAM_BOT_URL = 'https://t.me/YOUR_BOT_USERNAME';
-const GOOGLE_SCRIPT_URL = 'ВАШ_WEB_APP_URL';
-
+  
 const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 // Появление при скролле
